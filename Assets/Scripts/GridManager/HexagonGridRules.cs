@@ -1,28 +1,41 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class HexagonGridRules : MonoBehaviour
 {
+    // []
     public int width;
     public int height;
     public float scale = 1f;
-    public RuleTile ruleTileTest;
+    public GameObject tile;
+    public GameObject WaterTile;
     public Transform gridTransform;
-    public bool lancezGeneration;
+    public bool lancezGeneration = false;
+    public bool clearChildrens;
+    private bool isClear;
     public float OffsetZ = 0.76f;
     public float OffsetX = 0.88f;
     public Grid grid;
 
+    public List<GameObject> tilesSpawnList = new List<GameObject>();
+    [Tooltip("Scale = largeur de riviere ")]
+    public float riverScale = 0.4f;
+    [Tooltip("Scale = Seuil de detection de riviere  ")]
+    public float riverThreshold = 0.4f; // Seuil de détection de la rivière
+
     void Start()
     {
-        GenerateTiles();
+
+    }
+
+    private void FixedUpdate()
+    {
+
     }
 
     void GenerateTiles()
     {
-        lancezGeneration = false;
         // Effacer toutes les tuiles existantes avant de générer de nouvelles tuiles
-        ClearTiles();
 
         for (int x = 0; x < width; x++)
         {
@@ -30,26 +43,86 @@ public class HexagonGridRules : MonoBehaviour
             {
                 Vector3 gridPosition = new Vector3(x * OffsetX + (y % 2 == 0 ? 0 : 0.44f), 0, y * OffsetZ);
                 Vector3 worldPosition = gridTransform.TransformPoint(gridPosition);
-                float perlinValue = Mathf.PerlinNoise(worldPosition.x * scale, worldPosition.y * scale);
+                // Utiliser le bruit de Perlin pour déterminer la présence des rivières
+                float perlinValue = Mathf.PerlinNoise((worldPosition.x + 0.1f) * scale * riverScale, (worldPosition.z + 0.1f) * scale * riverScale);
 
-                // Instantiate la règle de tuile
-                Tilemap tilemap = grid.GetComponentInChildren<Tilemap>(); // Obtenez la Tilemap enfant du Grid
-                tilemap.SetTile(tilemap.WorldToCell(worldPosition), ruleTileTest); // Définissez la règle de tuile sur la position de la grille
+                // Vérifier si le bruit de Perlin dépasse le seuil de la rivière
+                if (perlinValue > riverThreshold)
+                {
+                    // Placer une tuile d'eau
+                    var waterTile = Instantiate(WaterTile, worldPosition, Quaternion.Euler(90, 0, 0), gameObject.transform);
+                    tilesSpawnList.Add(waterTile);
+                }
+                else
+                {
+                    // Placer une tuile normale
+                    var currentTile = Instantiate(tile, worldPosition, Quaternion.Euler(90, 0, 0), gameObject.transform);
+                    tilesSpawnList.Add(currentTile);
+                }
             }
         }
     }
+
     private void OnValidate()
     {
         if (lancezGeneration)
         {
+            lancezGeneration = false;
             // Générer de nouvelles tuiles avec les nouvelles valeurs de hauteur et de largeur
+            ClearObjects(false);
+        }
+        if (clearChildrens)
+        {
+            ClearObjects(true);
+        }
+    }
+
+    private void ClearChildrens()
+    {
+        int childCount = transform.childCount;
+        for (int i = childCount - 1; i >= 0; i--)
+        {
+            GameObject child = transform.GetChild(i).gameObject;
+#if UNITY_EDITOR
+            // Disable children in editor mode
+            child.SetActive(false);
+            UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(child);
+#else
+        // Destroy children during play mode
+        DestroyImmediate(child);
+#endif
+        }
+    }
+
+
+    /// <summary>
+    /// ClearObjects gl with that 
+    /// </summary>
+    /// <param name="only">only objects or WholeMap</param>
+    private void ClearObjects(bool only)
+    {
+        if (only)
+        {
+            clearChildrens = false;
+            foreach (var tile in tilesSpawnList)
+            {
+                Destroy(tile);
+            }
+            ClearChildrens();
+            tilesSpawnList.Clear();
+        }
+        else
+        {
+            lancezGeneration = false;
+            foreach (var tile in tilesSpawnList)
+            {
+                Destroy(tile);
+            }
+            ClearChildrens();
+            tilesSpawnList.Clear();
+
             GenerateTiles();
         }
     }
 
-    void ClearTiles()
-    {
-        Tilemap tilemap = grid.GetComponentInChildren<Tilemap>(); // Obtenez la Tilemap enfant du Grid
-        tilemap.ClearAllTiles(); // Effacer toutes les tuiles de la Tilemap
-    }
 }
