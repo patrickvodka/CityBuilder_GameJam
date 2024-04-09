@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1278612615482889823}
   - component: {fileID: 6015535464365471236}
   - component: {fileID: -3661909195719831127}
+  - component: {fileID: -3344284138829501035}
   m_Layer: 0
   m_Name: Hexagon Pointed-Top
   m_TagString: Untagged
@@ -107,3 +108,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &-3344284138829501035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844719019664344695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3e2a342d0e16648820fafb87bb47bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilePrefabs:
+  - {fileID: 3844719019664344695, guid: c0e38033a1d42894a9ca9e39f9bb9934, type: 3}
+  - {fileID: 3844719019664344695, guid: a86e3dca1924c3f4e8636152a5267444, type: 3}
