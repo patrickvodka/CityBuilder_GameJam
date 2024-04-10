@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-[ExecuteInEditMode]
-public partial class  HexagonGridRules : MonoBehaviour
+
+public class HexagonGridRules : MonoBehaviour
 {
     // []
     public int width;
@@ -12,13 +12,10 @@ public partial class  HexagonGridRules : MonoBehaviour
     public Transform gridTransform;
     public bool lancezGeneration = false;
     public bool clearChildrens;
-    public bool Save;
-    public bool generateFromSave;
-    public string nomDeLaSave;
-    public float OffsetZ = 0.76f;
-    public float OffsetX = 0.88f;
+    private bool isClear;
+    public float OffsetZ ;
+    public float OffsetX;
     public Grid grid;
-    public  GameObjectDictionarySO SO_SaveMap;
 
     public List<GameObject> tilesSpawnList = new List<GameObject>();
     [Tooltip("Scale = largeur de riviere ")]
@@ -26,9 +23,15 @@ public partial class  HexagonGridRules : MonoBehaviour
     [Tooltip("Scale = Seuil de detection de riviere  ")]
     public float riverThreshold = 0.4f; // Seuil de détection de la rivière
 
-    
+    void Start()
+    {
 
-    
+    }
+
+    private void FixedUpdate()
+    {
+
+    }
 
     void GenerateTiles()
     {
@@ -61,6 +64,7 @@ public partial class  HexagonGridRules : MonoBehaviour
 
         foreach (var item in tilesSpawnList)
         {
+            Debug.Log(item.GetComponent<BrushTest>().isSpawned);
             item.GetComponent<BrushTest>().isSpawned = true;
         }
     }
@@ -77,17 +81,6 @@ public partial class  HexagonGridRules : MonoBehaviour
         {
             ClearObjects(true);
         }
-        if (Save)
-        {
-            Save = false;
-            SaveMap(gameObject);
-        }
-        if (generateFromSave)
-        {
-            generateFromSave = false;
-            GenerateFromSaveMap();
-        }
-        
     }
 
     private void ClearChildrens()
