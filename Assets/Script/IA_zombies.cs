@@ -10,9 +10,7 @@ public class  IA_zombies : MonoBehaviour
     public NavMeshAgent agent;
     private Animator animator;
     private int attackDamage;
-    public List<Transform> flag;
-    public GameObject flagTarget;
-    public string tagToFind = "Flag"; // Tag à rechercher
+    public Transform flagTarget;
     public float changeDirectionInterval;
     public GameObject target;
     public ClosestFlag closestFlag;
@@ -21,26 +19,30 @@ public class  IA_zombies : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator=GetComponent<Animator>();
+        
     }
 
 
     public virtual void FixedUpdate()
     {
-        RechercheFalg();
+        
         
         if (target!=null)
         {
-            //chases
+            Debug.Log("hahahah");
+            Chase();
+            
         }
         else
         {
             if (flagTarget !=null)
             {
-                //falg
+               
+                HeadTowardsTheFlag();
             }
             else
             {
-                closestFlag.FindClosestObject();
+                
             }
             //freerun 
             
@@ -64,18 +66,21 @@ public class  IA_zombies : MonoBehaviour
     }
     public void Attack()
     {
-        //animator.SetBool("");
+       
+        
        
     }
 
     public  void LookUp()
     {
-        agent.SetDestination(target.transform.position);
+        
     }
     public void Chase()
     {
+        Debug.Log("chase");
         
         agent.SetDestination(target.transform.position);
+        
     }
 
     public void HeadTowardsTheFlag()
@@ -84,18 +89,19 @@ public class  IA_zombies : MonoBehaviour
         agent.SetDestination(flagTarget.transform.position);
 
     }
-
-    public void RechercheFalg()
+    
+    void OnTriggerEnter(Collider other)
     {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag(tagToFind);
-
-        // Ajouter les Transform de ces objets à la liste
-        foreach (GameObject obj in objects)
+        if (other.CompareTag("humain"))
         {
-            flag.Add(obj.transform);
+            //attack 
         }
-
-        // Afficher le nombre d'objets trouvés avec le tag spécifié
-        Debug.Log("Nombre d'objets avec le tag '" + tagToFind + "' trouvés : " + flag.Count);
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("humain"))
+        {
+            
+        }
     }
 }

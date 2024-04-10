@@ -6,7 +6,8 @@ public class ClosestFlag : MonoBehaviour
 {
     public List<Transform> flagToCompare; 
     private Transform closestObject; 
-    IA_zombies zombie;
+    public string tagToFind = "Flag"; // Tag à rechercher
+    public IA_zombies zombie;
 
     void Start()
     {
@@ -14,7 +15,8 @@ public class ClosestFlag : MonoBehaviour
     }
 
    public void FindClosestObject()
-    {
+   {
+       
         if (flagToCompare != null && flagToCompare.Count > 0)
         {
            
@@ -36,11 +38,25 @@ public class ClosestFlag : MonoBehaviour
             }
             
             Debug.Log("L'objet le plus proche est : " + closestObject.name);
-            zombie.flagTarget = closestObject.gameObject;
+            zombie.flagTarget = closestObject.transform;
         }
         else
         {
             Debug.LogWarning("La liste des objets à comparer est vide.");
         }
     }
+   public void RechercheFlag()
+   {
+       GameObject[] objects = GameObject.FindGameObjectsWithTag(tagToFind);
+
+       // Ajouter les Transform de ces objets à la liste
+       foreach (GameObject obj in objects)
+       {
+           flagToCompare.Add(obj.transform);
+       }
+
+       // Afficher le nombre d'objets trouvés avec le tag spécifié
+       Debug.Log("Nombre d'objets avec le tag '" + tagToFind + "' trouvés : " + flagToCompare.Count);
+       FindClosestObject();
+   }
 }

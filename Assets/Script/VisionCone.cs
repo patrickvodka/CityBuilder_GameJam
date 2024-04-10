@@ -15,24 +15,33 @@ public class VisionCone : MonoBehaviour
     Mesh VisionConeMesh;
     private MeshFilter MeshFilter_;
     [SerializeField] private Transform target;
-    IA_zombies zombie;
+    public IA_zombies zombie;
+    private const string HumanTag = "Human";
 
     
 
+    
+
+   
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("humain"))
-        {
-            target = other.transform;
-        }
+        SetZombieTarget(other, other.gameObject);
     }
+
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("humain"))
+        SetZombieTarget(other, null);
+    }
+
+    private void SetZombieTarget(Collider other, GameObject targetValue)
+    {
+        if (other.CompareTag(HumanTag))
         {
-            target = null;
+            zombie.target = targetValue;
         }
     }
+
     
     
     
