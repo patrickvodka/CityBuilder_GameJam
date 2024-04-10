@@ -38,7 +38,7 @@ public partial class  HexagonGridRules : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 gridPosition = new Vector3(x * OffsetX + (y % 2 == 0 ? 0 : 0.44f), 0, y * OffsetZ);
+                Vector3 gridPosition = new Vector3(x * OffsetX + (y % 2 == 0 ? 0 : 35f), 0, y * OffsetZ);
                 Vector3 worldPosition = gridTransform.TransformPoint(gridPosition);
                 // Utiliser le bruit de Perlin pour déterminer la présence des rivières
                 float perlinValue = Mathf.PerlinNoise((worldPosition.x + 0.1f) * scale * riverScale, (worldPosition.z + 0.1f) * scale * riverScale);
@@ -47,13 +47,13 @@ public partial class  HexagonGridRules : MonoBehaviour
                 if (perlinValue > riverThreshold)
                 {
                     // Placer une tuile d'eau
-                    var waterTile = Instantiate(WaterTile, worldPosition, Quaternion.Euler(90, 0, 0), gameObject.transform);
+                    var waterTile = Instantiate(tile, worldPosition, Quaternion.identity, gameObject.transform);
                     tilesSpawnList.Add(waterTile);
                 }
                 else
                 {
                     // Placer une tuile normale
-                    var currentTile = Instantiate(tile, worldPosition, Quaternion.Euler(90, 0, 0), gameObject.transform);
+                    var currentTile = Instantiate(tile, worldPosition, Quaternion.identity, gameObject.transform);
                     tilesSpawnList.Add(currentTile);
                 }
             }

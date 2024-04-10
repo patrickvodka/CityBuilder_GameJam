@@ -20,19 +20,29 @@ public class BrushTest : MonoBehaviour
 
     private void ChangeTile()
     {
-       if(wantedTileInArray > allTiles.Length && wantedTileInArray < 0  )
-        {
+       if(wantedTileInArray > allTiles.Length && wantedTileInArray < 0  ) {
             return;
+<<<<<<< HEAD
         }
         else
         {
             
+=======
+       }
+       else
+       {
+            Debug.Log("teftesfs");
+>>>>>>> 14ad38b49bdcd4b24b021781175ef0030bf0bf14
             var grid = GetComponentInParent<HexagonGridRules>(); 
             GameObject goToSpawn = allTiles[wantedTileInArray];
            var goSpawned = Instantiate(goToSpawn, transform.position, Quaternion.Euler(90, 0, 0), gameObject.GetComponentInParent<HexagonGridRules>().transform);
             goSpawned.GetComponent<BrushTest>().isSpawned = true;
             UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(gameObject);
+<<<<<<< HEAD
             
         }
+=======
+       }
+>>>>>>> 14ad38b49bdcd4b24b021781175ef0030bf0bf14
     }
 }
