@@ -35,39 +35,47 @@ public class HexagonGridRules : MonoBehaviour
 
     void GenerateTiles()
     {
-        // Effacer toutes les tuiles existantes avant de générer de nouvelles tuiles
+        // Clear existing tiles
+       
 
-        for (int x = 0; x < width; x++)
+        // Define the size of the hexagon
+        float hexSize = 10f; // Adjust as needed
+
+        // Calculate the offsets for x and z to ensure all edges have the same size
+        float OffsetX = hexSize * Mathf.Sqrt(3f);
+        float OffsetZ = hexSize * 1.5f;
+
+        for (int q = -width; q <= width; q++)
         {
-            for (int y = 0; y < height; y++)
-            {
-                Vector3 gridPosition = new Vector3(x * OffsetX + (y % 2 == 0 ? 0 : 35f), 0, y * OffsetZ);
-                Vector3 worldPosition = gridTransform.TransformPoint(gridPosition);
-                // Utiliser le bruit de Perlin pour déterminer la présence des rivières
-                float perlinValue = Mathf.PerlinNoise((worldPosition.x + 0.1f) * scale * riverScale, (worldPosition.z + 0.1f) * scale * riverScale);
+            int r1 = Mathf.Max(-height, -q - height);
+            int r2 = Mathf.Min(height, -q + height);
 
-                // Vérifier si le bruit de Perlin dépasse le seuil de la rivière
-                if (perlinValue > riverThreshold)
-                {
-                    // Placer une tuile d'eau
-                    var waterTile = Instantiate(tile, worldPosition, Quaternion.identity, gameObject.transform);
-                    tilesSpawnList.Add(waterTile);
-                }
+            for (int r = r1; r <= r2; r++)
+            {
+                // Calculate x and z coordinates based on hexagonal grid pattern
+                float x = q * OffsetX;
+                float z = r * OffsetZ;
+
+                // Adjust even columns
+                if (q % 2 == 1)
+                    z += OffsetZ / 2;
+
+                Vector3 gridPosition = new Vector3(x, 0, z);
+                Vector3 worldPosition = gridTransform.TransformPoint(gridPosition);
+
+                // Instantiate tile at the calculated position
+                GameObject currentTile;
+                if (Random.Range(0f, 1f) > riverThreshold)
+                    currentTile = Instantiate(WaterTile, worldPosition, Quaternion.identity, gameObject.transform);
                 else
-                {
-                    // Placer une tuile normale
-                    var currentTile = Instantiate(tile, worldPosition, Quaternion.identity, gameObject.transform);
-                    tilesSpawnList.Add(currentTile);
-                }
+                    currentTile = Instantiate(tile, worldPosition, Quaternion.identity, gameObject.transform);
+
+                tilesSpawnList.Add(currentTile);
             }
         }
-
-        foreach (var item in tilesSpawnList)
-        {
-            Debug.Log(item.GetComponent<BrushTest>().isSpawned);
-            item.GetComponent<BrushTest>().isSpawned = true;
-        }
     }
+
+
 
     private void OnValidate()
     {
