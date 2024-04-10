@@ -10838,83 +10838,6 @@ Transform:
   - {fileID: 666039931}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1310957001
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1310957003}
-  - component: {fileID: 1310957004}
-  - component: {fileID: 1310957005}
-  m_Layer: 0
-  m_Name: Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1310957003
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310957001}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10.4, y: 440.4, z: 4.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &1310957004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310957001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112c32df8c04da247b379f31c8fe2110, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 5
-  height: 20
-  scale: 1
-  tile: {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
-  WaterTile: {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
-  gridTransform: {fileID: 1310957003}
-  lancezGeneration: 0
-  clearChildrens: 0
-  Save: 0
-  generateFromSave: 0
-  nomDeLaSave: 
-  OffsetZ: 16
-  OffsetX: 60
-  grid: {fileID: 1310957005}
-  SO_SaveMap: {fileID: 11400000, guid: 8f83662d15494433baccd309031025cc, type: 2}
-  tilesSpawnList: []
-  riverScale: 0.4
-  riverThreshold: 0.4
-  prefabs:
-  - {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
---- !u!156049354 &1310957005
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310957001}
-  m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0
 --- !u!1 &1317126942
 GameObject:
   m_ObjectHideFlags: 0
@@ -12585,7 +12508,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1519907352}
   - component: {fileID: 1519907351}
-  - component: {fileID: 1519907353}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -12670,29 +12592,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &1519907353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519907350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
 --- !u!1 &1533179236
 GameObject:
   m_ObjectHideFlags: 0
@@ -18676,4 +18575,3 @@ SceneRoots:
   - {fileID: 631502288}
   - {fileID: 1519907352}
   - {fileID: 1298954005}
-  - {fileID: 1310957003}
