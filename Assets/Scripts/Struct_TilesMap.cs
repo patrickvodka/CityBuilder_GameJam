@@ -33,6 +33,7 @@ public partial class HexagonGridRules : MonoBehaviour
     // Méthode pour générer les GameObjects à partir de la sauvegarde dans le ScriptableObject
     private void GenerateFromSaveMap()
     {
+        ClearChildrens();
         foreach (var gameObjectData in SO_SaveMap.gameObjectDataList)
         {
             string tag = gameObjectData.tag;
