@@ -53,7 +53,7 @@ public class VisionCone : MonoBehaviour
         if (target != null)
         {
             
-            zombie.target = target.gameObject;
+            zombie.target = target.gameObject; 
             
         }
        

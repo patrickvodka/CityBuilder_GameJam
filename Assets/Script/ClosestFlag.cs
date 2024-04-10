@@ -13,7 +13,7 @@ public class ClosestFlag : MonoBehaviour
         FindClosestObject();
     }
 
-    void FindClosestObject()
+   public void FindClosestObject()
     {
         if (flagToCompare != null && flagToCompare.Count > 0)
         {
@@ -36,8 +36,7 @@ public class ClosestFlag : MonoBehaviour
             }
             
             Debug.Log("L'objet le plus proche est : " + closestObject.name);
-            zombie.flag = new List<GameObject>();
-            zombie.flag.Add(closestObject.gameObject);
+            zombie.flagTarget = closestObject.gameObject;
         }
         else
         {

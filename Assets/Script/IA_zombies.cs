@@ -1,30 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class  IA_zombies : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public Animator animator;
-    public int moveSpeed;
-    public int attackDamage;
-    public List<GameObject> flag;
+    private Animator animator;
+    private int attackDamage;
+    public List<Transform> flag;
+    public GameObject flagTarget;
+    public string tagToFind = "Flag"; // Tag à rechercher
     public float changeDirectionInterval;
     public GameObject target;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public virtual void Update()
+    public ClosestFlag closestFlag;
+
+    private void Start()
     {
-        // Code for updating the AI behavior
+        agent = GetComponent<NavMeshAgent>();
+        animator=GetComponent<Animator>();
+    }
+
+
+    public virtual void FixedUpdate()
+    {
+        RechercheFalg();
+        
+        if (target!=null)
+        {
+            //chases
+        }
+        else
+        {
+            if (flagTarget !=null)
+            {
+                //falg
+            }
+            else
+            {
+                closestFlag.FindClosestObject();
+            }
+            //freerun 
+            
+        }
+       
+        
+        
     }
     
     
@@ -41,12 +64,13 @@ public class  IA_zombies : MonoBehaviour
     }
     public void Attack()
     {
+        //animator.SetBool("");
        
     }
 
     public  void LookUp()
     {
-        
+        agent.SetDestination(target.transform.position);
     }
     public void Chase()
     {
@@ -56,11 +80,22 @@ public class  IA_zombies : MonoBehaviour
 
     public void HeadTowardsTheFlag()
     {
-        if (target != null)
-        {
-            Chase();
-        }
-        agent.SetDestination(flag[0].transform.position);
+       
+        agent.SetDestination(flagTarget.transform.position);
 
+    }
+
+    public void RechercheFalg()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag(tagToFind);
+
+        // Ajouter les Transform de ces objets à la liste
+        foreach (GameObject obj in objects)
+        {
+            flag.Add(obj.transform);
+        }
+
+        // Afficher le nombre d'objets trouvés avec le tag spécifié
+        Debug.Log("Nombre d'objets avec le tag '" + tagToFind + "' trouvés : " + flag.Count);
     }
 }
