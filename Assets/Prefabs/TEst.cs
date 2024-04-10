@@ -1,70 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 using UnityEngine;
 using UnityEditor;
 
-public class HexagonTileSelector : MonoBehaviour
+[CustomEditor(typeof(TileScriptEditor))] // Replace 'TileScript' with the name of your tile script
+public class TileScriptEditor : Editor
 {
-    public GameObject[] tilePrefabs;
-    private int selectedPrefabIndex = 0;
+    private SerializedProperty tilePrefabProperty;
 
-    private GameObject currentTile;
-
-    [MenuItem("Tools/Select Hexagon Tile")]
-    private static void SelectHexagonTile()
+    private void OnEnable()
     {
-        GameObject selectedObject = Selection.activeGameObject;
-        HexagonTileSelector selector = selectedObject.GetComponent<HexagonTileSelector>();
-        if (selector != null)
-        {
-            selector.SelectNextPrefab();
-        }
+        // Initialize serialized property for accessing the tile prefab
+        tilePrefabProperty = serializedObject.FindProperty("tilePrefab");
     }
 
-    private void SelectNextPrefab()
+    public override void OnInspectorGUI()
     {
-        selectedPrefabIndex = (selectedPrefabIndex + 1) % tilePrefabs.Length;
-        UpdateTilePrefab();
-    }
+        // Update serialized object's representation
+        serializedObject.Update();
 
-    private void UpdateTilePrefab()
-    {
-        if (currentTile != null && selectedPrefabIndex < tilePrefabs.Length)
-        {
-            GameObject newTilePrefab = tilePrefabs[selectedPrefabIndex];
-            SpriteRenderer spriteRenderer = currentTile.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.sprite = newTilePrefab.GetComponent<SpriteRenderer>().sprite;
-            }
-        }
-    }
+        // Display object field to select tile prefab
+        EditorGUILayout.PropertyField(tilePrefabProperty, true);
 
-    private void OnMouseDown()
-    {
-        if (Event.current.button == 0 && !EditorApplication.isPlaying)
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                Vector3 position = hit.point;
-                position.y = 0; // Set to ground level
-
-                if (selectedPrefabIndex < tilePrefabs.Length)
-                {
-                    GameObject selectedPrefab = tilePrefabs[selectedPrefabIndex];
-                    if (currentTile != null)
-                    {
-                        DestroyImmediate(currentTile);
-                    }
-                    currentTile = Instantiate(selectedPrefab, position, Quaternion.identity);
-                    currentTile.name = selectedPrefab.name;
-                }
-            }
-        }
+        // Apply changes to serialized object
+        serializedObject.ApplyModifiedProperties();
     }
 }
