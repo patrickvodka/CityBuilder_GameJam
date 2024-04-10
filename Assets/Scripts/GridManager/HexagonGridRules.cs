@@ -61,6 +61,12 @@ public class HexagonGridRules : MonoBehaviour
                 }
             }
         }
+
+        foreach (var item in tilesSpawnList)
+        {
+            Debug.Log(item.GetComponent<BrushTest>().isSpawned);
+            item.GetComponent<BrushTest>().isSpawned = true;
+        }
     }
 
     private void OnValidate()
