@@ -26,12 +26,13 @@ public class BrushTest : MonoBehaviour
         }
         else
         {
-            Debug.Log("teftesfs");
+            
             var grid = GetComponentInParent<HexagonGridRules>(); 
             GameObject goToSpawn = allTiles[wantedTileInArray];
            var goSpawned = Instantiate(goToSpawn, transform.position, Quaternion.Euler(90, 0, 0), gameObject.GetComponentInParent<HexagonGridRules>().transform);
             goSpawned.GetComponent<BrushTest>().isSpawned = true;
-            UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(this);
+            UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(gameObject);
+            
         }
     }
 }
