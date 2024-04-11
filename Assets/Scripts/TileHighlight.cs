@@ -1,12 +1,17 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TileInteraction : MonoBehaviour
 {
-    public GameObject prefabToInstantiate; // The prefab to instantiate when clicking on the tile
+    
+    public GameObject fleshPrefab;
+    public GameObject spawnerPrefab;
     private Vector3 originalPosition; // Stores the original position of the tile
     private bool isHighlighted = false; // Indicates whether the tile is currently highlighted
     private GameObject previewPrefabInstance; // Instance of the preview prefab
     private bool canCraft;
+    private bool isSpawnerSet=false;
+    private bool blockInput { get; set; } = false;
     private void Start()
     {
         // Save the initial position of the tile
@@ -17,13 +22,13 @@ public class TileInteraction : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        // Move the tile upwards when the mouse enters
+       
         
 
         // Instantiate the preview prefab at the tile's position
-        if (prefabToInstantiate != null && canCraft)
+        if (fleshPrefab != null && canCraft)
         {
-            previewPrefabInstance = Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
+            previewPrefabInstance = Instantiate(fleshPrefab, transform.position, Quaternion.identity);
         }
     }
 
@@ -43,11 +48,14 @@ public class TileInteraction : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // If a preview prefab instance exists and is not null, instantiate the final prefab at the tile's position
-        if (previewPrefabInstance != null && canCraft)
+        if (!blockInput)
         {
-            Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
-            canCraft = false;
+            // If a preview prefab instance exists and is not null, instantiate the final prefab at the tile's position
+            if (previewPrefabInstance != null && canCraft)
+            {
+                Instantiate(fleshPrefab, transform.position, Quaternion.identity);
+                canCraft = false;
+            }
         }
     }
 }
