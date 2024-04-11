@@ -42,7 +42,7 @@ public class ClosestFlag : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("La liste des objets à comparer est vide.");
+             Debug.LogWarning("La liste des objets à comparer est vide.");
         }
     }
    public void RechercheFlag()

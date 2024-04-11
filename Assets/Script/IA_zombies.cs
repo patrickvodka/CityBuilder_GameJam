@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class  IA_zombies : MonoBehaviour
 {
@@ -11,23 +12,25 @@ public class  IA_zombies : MonoBehaviour
     private Animator animator;
     private int attackDamage;
     public Transform flagTarget;
-    public float changeDirectionInterval;
-    public GameObject target;
-    public ClosestFlag closestFlag;
+    public List<Transform> targetList;
+    private Transform target;
+    private Vector3 randomDirection;
+    private float radiusFreeRun= 5;
+    public float detectionRange = 5f;
 
     private void Start()
     {
+        FreeRun();
         agent = GetComponent<NavMeshAgent>();
         animator=GetComponent<Animator>();
-        
     }
 
 
-    public virtual void FixedUpdate()
+    public virtual void Update()
     {
+
         
-        
-        if (target!=null)
+        if ((target!=null))
         {
             Debug.Log("hahahah");
             Chase();
@@ -45,23 +48,16 @@ public class  IA_zombies : MonoBehaviour
                 
             }
             //freerun 
-            
         }
        
         
         
     }
     
-    
-    
-    //freerun 
-    // Look UP
-    //chases
-    //attack 
-    //Head Towards The Flag
 
     public  void FreeRun()
     {
+        agent.SetDestination(RandomNavmeshLocation(radiusFreeRun));
         
     }
     public void Attack()
@@ -79,9 +75,8 @@ public class  IA_zombies : MonoBehaviour
     {
         Debug.Log("chase");
         
-        agent.SetDestination(target.transform.position);
-        
     }
+    
 
     public void HeadTowardsTheFlag()
     {
@@ -90,18 +85,32 @@ public class  IA_zombies : MonoBehaviour
 
     }
     
-    void OnTriggerEnter(Collider other)
+    public Vector3 RandomNavmeshLocation(float radius) {
+        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        randomDirection += transform.position;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1)) {
+            finalPosition = hit.position;            
+        }
+        return finalPosition;
+    }
+    private void DetectPlayerFootsteps()
     {
-        if (other.CompareTag("humain"))
+        // Utiliser la détection des pas du joueur pour déclencher des actions de l'IA agricole
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
+        foreach (Collider collider in hitColliders)
         {
-            //attack 
+            // Réagir à la présence du joueur (exemple : activer l'IA agricole)
+            if (collider.CompareTag("Player"))
+            {
+                // Faire réagir l'IA agricole en fonction des pas détectés
+                // Exemple : lancer une animation, déclencher une action agricole, etc.
+            }
         }
     }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("humain"))
-        {
-            
-        }
-    }
+
+    
+    
+    
 }
