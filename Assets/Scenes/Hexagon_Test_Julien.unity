@@ -22314,6 +22314,7 @@ MonoBehaviour:
   WaterTile: {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
   gridTransform: {fileID: 1662320478}
   lancezGeneration: 0
+  playTest: 1
   clearChildrens: 0
   Save: 0
   generateFromSave: 0
