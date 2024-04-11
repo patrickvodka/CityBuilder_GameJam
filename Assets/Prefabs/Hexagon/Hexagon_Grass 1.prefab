@@ -59,10 +59,10 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 18991c397839782429c7ce1dbd059352, type: 2}
+      objectReference: {fileID: 2100000, guid: b52cbc6bf3d750c4e9b74b928286eef8, type: 2}
     - target: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
       propertyPath: m_Name
-      value: Hexagon_Grass
+      value: Hexagon_Grass 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
       propertyPath: m_TagString
@@ -75,9 +75,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6278410400049004659}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2363486663504506961}
   m_SourcePrefab: {fileID: 100100000, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
 --- !u!1 &224554775205978618 stripped
 GameObject:
@@ -106,20 +103,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4575734979276873811, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
---- !u!114 &2363486663504506961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 224554775205978618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d027af001a9bd44eab8aa3fda8138904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allTiles:
-  - {fileID: 224554775205978618}
-  - {fileID: 224554775205978618, guid: ef4b27f2da7ab8f4b9368e5bfe8ce171, type: 3}
-  wantedTileInArray: 0
-  isSpawned: 0

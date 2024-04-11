@@ -2460,9 +2460,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6385695157823067368, guid: beff4e39f26e7ce418b1be6b505f37a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1519907352}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beff4e39f26e7ce418b1be6b505f37a7, type: 3}
+--- !u!4 &171587283 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6385695157823067368, guid: beff4e39f26e7ce418b1be6b505f37a7, type: 3}
+  m_PrefabInstance: {fileID: 171587282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &188310686
 GameObject:
   m_ObjectHideFlags: 0
@@ -8544,6 +8552,7 @@ GameObject:
   - component: {fileID: 631502288}
   - component: {fileID: 631502287}
   - component: {fileID: 631502286}
+  - component: {fileID: 631502289}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8625,6 +8634,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &631502289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631502285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1001 &634340850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22126,12 +22179,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519907350}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: 0.23456976, z: -0.10938167, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.36599812, y: -0.45315385, z: 0.21130909, w: 0.7848856}
+  m_LocalPosition: {x: 578.0001, y: 3, z: -390}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 171587283}
   m_LocalEulerAnglesHint: {x: 50, y: 30, z: 0}
 --- !u!114 &1519907353
 MonoBehaviour:
@@ -23792,17 +23845,21 @@ MonoBehaviour:
   width: 0
   height: 0
   scale: 1
-  tile: {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
-  WaterTile: {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
+  tile: {fileID: 0}
+  WaterTile: {fileID: 0}
   gridTransform: {fileID: 1662320478}
   lancezGeneration: 0
   clearChildrens: 0
+  Save: 0
+  generateFromSave: 0
   OffsetZ: 0.76
   OffsetX: 0.88
   grid: {fileID: 0}
+  SO_SaveMap: {fileID: 0}
   tilesSpawnList: []
   riverScale: 0.4
   riverThreshold: 0.4
+  prefabs: []
 --- !u!4 &1662320478
 Transform:
   m_ObjectHideFlags: 0
@@ -32676,7 +32733,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 631502288}
-  - {fileID: 1519907352}
   - {fileID: 1298954005}
   - {fileID: 2145090394}
   - {fileID: 470504377}

@@ -32,37 +32,33 @@ public partial class  HexagonGridRules : MonoBehaviour
     void GenerateTiles()
     {
         // Effacer toutes les tuiles existantes avant de générer de nouvelles tuiles
+        
 
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                Vector3 gridPosition = new Vector3(x * OffsetX + (y % 2 == 0 ? 0 : 0.44f), 0, y * OffsetZ);
+                // Décalage de la moitié de l'OffsetX pour chaque ligne impaire
+                float offsetX = x * OffsetX + (y % 2 == 0 ? 0 : OffsetX * 0.5f);
+            
+                Vector3 gridPosition = new Vector3(offsetX, 0, y * OffsetZ);
                 Vector3 worldPosition = gridTransform.TransformPoint(gridPosition);
+
                 // Utiliser le bruit de Perlin pour déterminer la présence des rivières
                 float perlinValue = Mathf.PerlinNoise((worldPosition.x + 0.1f) * scale * riverScale, (worldPosition.z + 0.1f) * scale * riverScale);
 
                 // Vérifier si le bruit de Perlin dépasse le seuil de la rivière
-                if (perlinValue > riverThreshold)
-                {
-                    // Placer une tuile d'eau
-                    var waterTile = Instantiate(WaterTile, worldPosition, Quaternion.Euler(90, 0, 0), gameObject.transform);
-                    tilesSpawnList.Add(waterTile);
-                }
-                else
-                {
-                    // Placer une tuile normale
-                    var currentTile = Instantiate(tile, worldPosition, Quaternion.Euler(90, 0, 0), gameObject.transform);
-                    tilesSpawnList.Add(currentTile);
-                }
+                GameObject tilePrefab = (perlinValue > riverThreshold) ? WaterTile : tile;
+                GameObject currentTile = Instantiate(tilePrefab, worldPosition, Quaternion.identity, gameObject.transform);
+                tilesSpawnList.Add(currentTile);
             }
         }
-
         foreach (var item in tilesSpawnList)
         {
             item.GetComponent<BrushTest>().isSpawned = true;
         }
     }
+
 
     private void OnValidate()
     {

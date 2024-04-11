@@ -29,7 +29,7 @@ public class BrushTest : MonoBehaviour
 
             var grid = GetComponentInParent<HexagonGridRules>(); 
             GameObject goToSpawn = allTiles[wantedTileInArray];
-            var goSpawned = Instantiate(goToSpawn, transform.position, Quaternion.Euler(90, 0, 0), gameObject.GetComponentInParent<HexagonGridRules>().transform);
+            var goSpawned = Instantiate(goToSpawn, transform.position, Quaternion.Euler(0, 0, 0), gameObject.GetComponentInParent<HexagonGridRules>().transform);
             goSpawned.GetComponent<BrushTest>().isSpawned = true;
             UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(gameObject);
 
