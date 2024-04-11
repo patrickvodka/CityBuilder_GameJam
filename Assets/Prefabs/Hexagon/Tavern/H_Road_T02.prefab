@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 4017797790519988166}
   - component: {fileID: 717058356116259187}
   - component: {fileID: 3477344279470018243}
+  - component: {fileID: -7465851657782803741}
   m_Layer: 0
   m_Name: H_Road_T02
   m_TagString: Untagged
@@ -460,6 +461,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4575734979276873811, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
+--- !u!114 &-7465851657782803741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069564909877363042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027af001a9bd44eab8aa3fda8138904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allTiles:
+  - {fileID: 9069564909877363042}
+  - {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
+  wantedTileInArray: 0
+  isSpawned: 0
+  playTest: 0
 --- !u!1001 &1412781897309196818
 PrefabInstance:
   m_ObjectHideFlags: 0
