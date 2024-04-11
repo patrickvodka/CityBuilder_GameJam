@@ -13,8 +13,8 @@ public class HexagonGridRules : MonoBehaviour
     public bool lancezGeneration = false;
     public bool clearChildrens;
     private bool isClear;
-    public float OffsetZ = 0.76f;
-    public float OffsetX = 0.88f;
+    public float OffsetZ ;
+    public float OffsetX;
     public Grid grid;
 
     public List<GameObject> tilesSpawnList = new List<GameObject>();
