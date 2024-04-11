@@ -35,6 +35,7 @@ public partial class HexagonGridRules : MonoBehaviour
     {
         foreach (var gameObjectData in SO_SaveMap.gameObjectDataList)
         {
+            ClearObjects(false);
             string tag = gameObjectData.tag;
             Vector3 position = gameObjectData.position;
 

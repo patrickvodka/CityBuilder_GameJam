@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "GameObjectDictionary", menuName = "Map/GameObjectDictionary", order = 1)]
+[CreateAssetMenu(fileName = "ManualSaver", menuName = "Map/SaveMap", order = 1)]
 public class GameObjectDictionarySO : ScriptableObject
 {
     [System.Serializable]

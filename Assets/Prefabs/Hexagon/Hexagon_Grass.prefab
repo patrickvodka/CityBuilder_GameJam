@@ -62,7 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 18991c397839782429c7ce1dbd059352, type: 2}
     - target: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
       propertyPath: m_Name
-      value: Hexagon
+      value: Hexagon_Grass
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
+      propertyPath: m_TagString
+      value: GreenTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
