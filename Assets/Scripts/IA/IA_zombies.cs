@@ -18,11 +18,17 @@ public class  IA_zombies : MonoBehaviour
     private float radiusFreeRun= 5;
     public float detectionRange = 5f;
 
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        animator=GetComponent<Animator>();
+    }
+
     private void Start()
     {
         FreeRun();
-        agent = GetComponent<NavMeshAgent>();
-        animator=GetComponent<Animator>();
+        
     }
 
 
@@ -57,6 +63,7 @@ public class  IA_zombies : MonoBehaviour
 
     public  void FreeRun()
     {
+        
         agent.SetDestination(RandomNavmeshLocation(radiusFreeRun));
         
     }
