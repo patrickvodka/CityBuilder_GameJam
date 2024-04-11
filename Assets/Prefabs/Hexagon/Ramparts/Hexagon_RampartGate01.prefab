@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 1251262395418486229}
   - component: {fileID: -5035444422282991106}
   m_Layer: 0
-  m_Name: Hexagon_RampartGate
+  m_Name: Hexagon_RampartGate01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
