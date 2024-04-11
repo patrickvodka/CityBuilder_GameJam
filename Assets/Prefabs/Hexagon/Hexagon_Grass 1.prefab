@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
       propertyPath: m_TagString
-      value: GreenTile
+      value: BlackTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6278410400049004659}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3563660350521111332}
   m_SourcePrefab: {fileID: 100100000, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
 --- !u!1 &224554775205978618 stripped
 GameObject:
@@ -103,3 +106,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4575734979276873811, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
+--- !u!114 &3563660350521111332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224554775205978618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027af001a9bd44eab8aa3fda8138904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allTiles:
+  - {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
+  - {fileID: 224554775205978618}
+  wantedTileInArray: 0
+  isSpawned: 0

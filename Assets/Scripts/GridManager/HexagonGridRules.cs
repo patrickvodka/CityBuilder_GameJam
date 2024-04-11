@@ -12,12 +12,17 @@ public partial class  HexagonGridRules : MonoBehaviour
     public Transform gridTransform;
     public bool lancezGeneration = false;
     public bool clearChildrens;
+    [Space]
+    [Space]
+    
     public bool Save;
+    [Space]
     public bool generateFromSave;
-    public float OffsetZ = 0.76f;
-    public float OffsetX = 0.88f;
-    public Grid grid;
     public  GameObjectDictionarySO SO_SaveMap;
+    public float OffsetZ = 0.30f;
+    public float OffsetX = 0.35f;
+    public Grid grid;
+    
 
     public List<GameObject> tilesSpawnList = new List<GameObject>();
     [Tooltip("Scale = largeur de riviere ")]
