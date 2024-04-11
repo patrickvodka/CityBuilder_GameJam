@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 5492083755111141458}
   - component: {fileID: 8106263116778751470}
   - component: {fileID: 7593012649219069183}
+  - component: {fileID: 476614156942004972}
   m_Layer: 0
   m_Name: H_Road09
   m_TagString: Untagged
@@ -142,6 +143,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4575734979276873811, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
+--- !u!114 &476614156942004972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618709815643636891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027af001a9bd44eab8aa3fda8138904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allTiles:
+  - {fileID: 618709815643636891}
+  - {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
+  wantedTileInArray: 0
+  isSpawned: 0
+  playTest: 0
 --- !u!1 &2201359549056129442
 GameObject:
   m_ObjectHideFlags: 0

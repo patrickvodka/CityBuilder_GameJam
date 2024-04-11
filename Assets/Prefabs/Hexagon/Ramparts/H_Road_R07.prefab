@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 8315670463159401324}
   - component: {fileID: 653377696827135962}
   - component: {fileID: 8770572754814552242}
+  - component: {fileID: -8120940757220316857}
   m_Layer: 0
   m_Name: H_Road_R07
   m_TagString: Untagged
@@ -280,6 +281,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4575734979276873811, guid: a7fc01fb586cae7408d0fd1319b1bdb0, type: 3}
+--- !u!114 &-8120940757220316857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5659564461662951666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027af001a9bd44eab8aa3fda8138904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allTiles:
+  - {fileID: 5659564461662951666}
+  - {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
+  wantedTileInArray: 0
+  isSpawned: 0
+  playTest: 0
 --- !u!1 &7783341907661237774
 GameObject:
   m_ObjectHideFlags: 0
