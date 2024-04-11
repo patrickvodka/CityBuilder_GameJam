@@ -33,9 +33,10 @@ public partial class HexagonGridRules : MonoBehaviour
     // Méthode pour générer les GameObjects à partir de la sauvegarde dans le ScriptableObject
     private void GenerateFromSaveMap()
     {
+        ClearObjects(false);
         foreach (var gameObjectData in SO_SaveMap.gameObjectDataList)
         {
-            ClearObjects(false);
+            
             string tag = gameObjectData.tag;
             Vector3 position = gameObjectData.position;
 
@@ -43,14 +44,15 @@ public partial class HexagonGridRules : MonoBehaviour
             GameObject prefab = GetPrefabByTag(tag);
             if (prefab != null)
             {
-                Instantiate(prefab, position, Quaternion.Euler(90, 0, 0),gameObject.transform);
-                // Vous pouvez ajouter d'autres traitements ou composants au besoin
-            }
-            else
-            {
-                Debug.LogWarning("Prefab not found for tag: " + tag);
+                GameObject currentTile = Instantiate(prefab, position, Quaternion.identity, gameObject.transform);
+                tilesSpawnList.Add(currentTile);
             }
         }
+        foreach (var item in tilesSpawnList)
+        {
+            item.GetComponent<BrushTest>().isSpawned = true;
+        }
+        
     }
 
     // Méthode pour obtenir le préfabriqué correspondant à un tag
