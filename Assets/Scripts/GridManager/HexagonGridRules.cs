@@ -1,5 +1,7 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 [ExecuteInEditMode]
 public partial class  HexagonGridRules : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public partial class  HexagonGridRules : MonoBehaviour
     public GameObject WaterTile;
     public Transform gridTransform;
     public bool lancezGeneration = false;
+    [Tooltip("mettre la variable a true si on lance le jeu en PlayMode")]
+    public bool playTest = true;
     public bool clearChildrens;
     [Space]
     [Space]
@@ -30,43 +34,63 @@ public partial class  HexagonGridRules : MonoBehaviour
     [Tooltip("Scale = Seuil de detection de riviere  ")]
     public float riverThreshold = 0.4f; // Seuil de détection de la rivière
 
-    
-
-    
-
     void GenerateTiles()
     {
-        // Effacer toutes les tuiles existantes avant de générer de nouvelles tuiles
-        
-
-        for (int x = 0; x < width; x++)
+        if (playTest)
         {
-            for (int y = 0; y < height; y++)
+            return;
+        }
+
+        if (!EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                // Décalage de la moitié de l'OffsetX pour chaque ligne impaire
-                float offsetX = x * OffsetX + (y % 2 == 0 ? 0 : OffsetX * 0.5f);
-            
-                Vector3 gridPosition = new Vector3(offsetX, 0, y * OffsetZ);
-                Vector3 worldPosition = gridTransform.TransformPoint(gridPosition);
+                // Effacer toutes les tuiles existantes avant de générer de nouvelles tuiles
+                if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+                    return;
 
-                // Utiliser le bruit de Perlin pour déterminer la présence des rivières
-                float perlinValue = Mathf.PerlinNoise((worldPosition.x + 0.1f) * scale * riverScale, (worldPosition.z + 0.1f) * scale * riverScale);
+                for (int x = 0; x < width; x++)
+                {
+                    for (int y = 0; y < height; y++)
+                    {
+                        // Décalage de la moitié de l'OffsetX pour chaque ligne impaire
+                        float offsetX = x * OffsetX + (y % 2 == 0 ? 0 : OffsetX * 0.5f);
 
-                // Vérifier si le bruit de Perlin dépasse le seuil de la rivière
-                GameObject tilePrefab = (perlinValue > riverThreshold) ? WaterTile : tile;
-                GameObject currentTile = Instantiate(tilePrefab, worldPosition, Quaternion.identity, gameObject.transform);
-                tilesSpawnList.Add(currentTile);
+                        Vector3 gridPosition = new Vector3(offsetX, 0, y * OffsetZ);
+                        Vector3 worldPosition = gridTransform.TransformPoint(gridPosition);
+
+                        // Utiliser le bruit de Perlin pour déterminer la présence des rivières
+                        float perlinValue = Mathf.PerlinNoise((worldPosition.x + 0.1f) * scale * riverScale,
+                            (worldPosition.z + 0.1f) * scale * riverScale);
+
+                        // Vérifier si le bruit de Perlin dépasse le seuil de la rivière
+                        GameObject tilePrefab = (perlinValue > riverThreshold) ? WaterTile : tile;
+                        GameObject currentTile = Instantiate(tilePrefab, worldPosition, Quaternion.identity,
+                            gameObject.transform);
+                        tilesSpawnList.Add(currentTile);
+                    }
+                }
+
+                if (!playTest)
+                {
+                    foreach (var item in tilesSpawnList)
+                    {
+                        item.GetComponent<BrushTest>().isSpawned = true;
+                    }
+                }
             }
-        }
-        foreach (var item in tilesSpawnList)
-        {
-            item.GetComponent<BrushTest>().isSpawned = true;
-        }
+        
     }
 
-
+#endif
+#if UNITY_EDITOR
     private void OnValidate()
     {
+        ChangePlaymode(playTest);
+        if (playTest)
+        {
+            return;
+        }
+        if (EditorApplication.isPlayingOrWillChangePlaymode)
+            return;
         if (lancezGeneration)
         {
             lancezGeneration = false;
@@ -89,7 +113,7 @@ public partial class  HexagonGridRules : MonoBehaviour
         }
         
     }
-
+#endif
     private void ClearChildrens()
     {
         int childCount = transform.childCount;
@@ -107,6 +131,24 @@ public partial class  HexagonGridRules : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+
+    private void ChangePlaymode(bool currentBool)
+    {
+        // Parcourir tous les enfants du GameObject actuel
+        foreach (Transform childTransform in transform)
+        {
+            // Récupérer le composant BrushTest de l'enfant s'il en a un
+            BrushTest brushTest = childTransform.GetComponent<BrushTest>();
+        
+            // Si le composant BrushTest existe sur l'enfant
+            if (brushTest != null)
+            {
+                // Définir la variable playTest sur la valeur spécifiée
+                brushTest.playTest = currentBool;
+            }
+        }
+    }
 
     /// <summary>
     /// ClearObjects gl with that 
@@ -131,11 +173,16 @@ public partial class  HexagonGridRules : MonoBehaviour
             {
                 Destroy(tile);
             }
+
             ClearChildrens();
             tilesSpawnList.Clear();
-
+            if (playTest ||  EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                return;
+            }
             GenerateTiles();
         }
     }
 
 }
+#endif
