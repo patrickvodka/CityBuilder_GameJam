@@ -14,11 +14,7 @@ public class HexGrid : MonoBehaviour
     public float OffsetX = 0.88f;
     public Grid grid;
 
-    void Start()
-    {
-        //Instantiate(ruleTileTest, new Vector3(0,0,0), quaternion.identity, gridTransform);
-       GenerateTiles();
-    }
+    
 
     void GenerateTiles()
     {

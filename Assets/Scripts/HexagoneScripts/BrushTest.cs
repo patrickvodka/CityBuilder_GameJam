@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+#if UNITY_EDITOR
+
+
 using UnityEngine;
 [ExecuteInEditMode]
 public class BrushTest : MonoBehaviour
@@ -8,10 +8,14 @@ public class BrushTest : MonoBehaviour
     public GameObject[] allTiles;
     public int wantedTileInArray;
     public bool isSpawned = false;
+    [HideInInspector]
+    public bool playTest=false;
     // destroy UnityEditor.EditorApplication.delayCall += () => DestroyImmediate(child);
 
     private void OnValidate()
     {
+        if(playTest)
+            return;
         if (isSpawned)
         {
             ChangeTile();
@@ -36,3 +40,4 @@ public class BrushTest : MonoBehaviour
         }
     }
 }
+#endif
