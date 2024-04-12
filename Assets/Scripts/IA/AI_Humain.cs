@@ -36,6 +36,7 @@ public class AI_Humain : MonoBehaviour,IDamageable
     private void Update()
     {
         _ClosestHumain.RechercheFlag();
+        // a modifier si on arrive prendre des dommage
         if (flagTarget !=null)
         {
             animator.SetBool("ville",true);
