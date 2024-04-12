@@ -38,7 +38,7 @@ public class AI_Humain : MonoBehaviour,IDamageable
         _ClosestHumain.RechercheFlag();
         if (flagTarget !=null)
         {
-            animator.SetBool("drapeau poser",true);
+            animator.SetBool("ville",true);
         }
     }
 
