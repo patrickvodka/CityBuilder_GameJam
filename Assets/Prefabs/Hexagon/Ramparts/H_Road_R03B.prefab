@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allTiles:
-  - {fileID: 4634264230318550623, guid: 48485755a72fcbb42bf43c012743fcf0, type: 3}
+  - {fileID: 371301644429892449}
   - {fileID: 224554775205978618, guid: fe1fca888a5a34e4c9f604fdea01be5a, type: 3}
   wantedTileInArray: 0
   isSpawned: 0
