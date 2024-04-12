@@ -16,6 +16,7 @@ public partial class  HexagonGridRules : MonoBehaviour
     [Tooltip("mettre la variable a true si on lance le jeu en PlayMode")]
     public bool playTest = true;
     public bool clearChildrens;
+    public GameObject objectToSpawn;
     [Space]
     [Space]
     

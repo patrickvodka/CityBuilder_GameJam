@@ -8,6 +8,10 @@ TagManager:
   - BlueTile
   - GreenTile
   - Enemy
+  - Human
+  - RapidoSpawner
+  - NoArmSpawner
+  - BombZombie
   layers:
   - Default
   - TransparentFX
