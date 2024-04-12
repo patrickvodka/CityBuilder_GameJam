@@ -11,7 +11,7 @@ public class ClosestFlag : MonoBehaviour
 
     void Start()
     {
-        
+        RechercheFlag();
     }
 
    public void FindClosestObject()
@@ -47,6 +47,7 @@ public class ClosestFlag : MonoBehaviour
     }
    public void RechercheFlag()
    {
+       flagToCompare.Clear();
        GameObject[] objects = GameObject.FindGameObjectsWithTag(tagToFind);
 
        // Ajouter les Transform de ces objets à la liste

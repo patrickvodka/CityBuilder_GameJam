@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.ProBuilder.MeshOperations;
 using Random = UnityEngine.Random;
 
-public class  IA_zombies : MonoBehaviour
+public class IA_zombies : MonoBehaviour, IDamageable
 {
     public NavMeshAgent agent;
     private Animator animator;
@@ -14,46 +16,70 @@ public class  IA_zombies : MonoBehaviour
     public Transform flagTarget;
     public List<Transform> targetList;
     private Transform target;
-    private Vector3 randomDirection;
     private float radiusFreeRun= 5;
-    public float detectionRange = 5f;
+    public List<IDamageable> Damageable;
+    public float maxHealth;
+    public float currentHealth;
+
+
+    [SerializeField] private float DamageAfterTime;
+    [SerializeField] private float strongDamageAfterTime;
+    [SerializeField] private DamageType Normal;
+    [SerializeField] private int Damage;
+    private Vector3 FreeRunTarget;
+    private ClosestFlag closestFlag;
+    private AttackArea attackArea;
+    
+    
+    
 
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator=GetComponent<Animator>();
+        FreeRunTarget = transform.position;
+        FreeRunTarget.y = 0;
+        closestFlag = GetComponent<ClosestFlag>();
     }
 
     private void Start()
     {
-        FreeRun();
+        currentHealth = maxHealth;
         
     }
-
+    // Evénement déclenché lorsque l'entité meurt
+    public event Action OnDeath;
 
     public virtual void Update()
     {
-
         
-        if ((target!=null))
+
+
+
+        if ((targetList.Any()))
         {
-            Debug.Log("hahahah");
-            Chase();
-            
+           animator.SetBool("voir",true);
+           animator.SetBool("drapeau poser",false);
+           /*if (Damageable.Any())
+           {
+               Debug.Log("test");
+           }*/
+           
         }
         else
-        {
+        { 
+            closestFlag.RechercheFlag();
+            animator.SetBool("voir",false);
             if (flagTarget !=null)
             {
                
-                HeadTowardsTheFlag();
+                animator.SetBool("drapeau poser",true);
             }
             else
             {
-                
+               return;
             }
-            //freerun 
         }
        
         
@@ -63,24 +89,41 @@ public class  IA_zombies : MonoBehaviour
 
     public  void FreeRun()
     {
+        Debug.Log("free");
+
+        Vector3 zombiesPosistion=transform.position;
+        zombiesPosistion.y = 0;
         
-        agent.SetDestination(RandomNavmeshLocation(radiusFreeRun));
-        
+        float distance =Vector3.Distance(zombiesPosistion, FreeRunTarget );
+        if (distance<= 1)
+        {
+            
+            FreeRunTarget = RandomNavmeshLocation(radiusFreeRun);
+            agent.SetDestination(FreeRunTarget);
+
+        }
+        Debug.Log(distance);
     }
     public void Attack()
     {
-       
-        
-       
-    }
 
-    public  void LookUp()
-    {
-        
+        StartCoroutine(hit(false));
+
     }
+    
     public void Chase()
     {
-        Debug.Log("chase");
+        if ((!targetList.Any()))
+        {
+            animator.SetBool("voir",false);
+            
+        }
+        else
+        {
+            agent.SetDestination(targetList[0].transform.position);
+        }
+        
+        
         
     }
     
@@ -102,22 +145,24 @@ public class  IA_zombies : MonoBehaviour
         }
         return finalPosition;
     }
-    private void DetectPlayerFootsteps()
+
+    private IEnumerator hit(bool strong)
     {
-        // Utiliser la détection des pas du joueur pour déclencher des actions de l'IA agricole
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRange);
-        foreach (Collider collider in hitColliders)
+        yield return new WaitForSeconds(strong? DamageAfterTime: strongDamageAfterTime);
+        foreach (var damageable in Damageable)
         {
-            // Réagir à la présence du joueur (exemple : activer l'IA agricole)
-            if (collider.CompareTag("Player"))
-            {
-                // Faire réagir l'IA agricole en fonction des pas détectés
-                // Exemple : lancer une animation, déclencher une action agricole, etc.
-            }
+            damageable.TakeDamage(Damage, Normal);
         }
+        
     }
 
-    
-    
-    
+
+    public void TakeDamage(float damage, DamageType damageType)
+    {
+        currentHealth = currentHealth - damage;
+        if (currentHealth <= 0)
+        {
+            OnDeath?.Invoke();
+        }
+    }
 }
