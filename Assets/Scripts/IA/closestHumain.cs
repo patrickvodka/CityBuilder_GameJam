@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClosestFlag : MonoBehaviour
+public class closestHumain : MonoBehaviour
 {
     public List<Transform> flagToCompare; 
-    public Transform closestObject; 
-    public string tagToFind = "Flag"; // Tag à rechercher
-    public IA_zombies zombie;
+    private Transform closestObject; 
+    public string tagToFind = "VilleHumain"; // Tag à rechercher
+    public AI_Humain humain;
 
     void Start()
     {
         RechercheFlag();
     }
 
-   public void FindClosestObject()
-   {
+    public void FindClosestObject()
+    {
        
         if (flagToCompare != null && flagToCompare.Count > 0)
         {
@@ -38,26 +38,26 @@ public class ClosestFlag : MonoBehaviour
             }
             
             Debug.Log("L'objet le plus proche est : " + closestObject.name);
-            zombie.flagTarget = closestObject.transform;
+            humain.flagTarget = closestObject.transform;
         }
         else
         {
-             Debug.LogWarning("La liste des objets à comparer est vide.");
+            Debug.LogWarning("La liste des objets à comparer est vide.");
         }
     }
-   public void RechercheFlag()
-   {
-       flagToCompare.Clear();
-       GameObject[] objects = GameObject.FindGameObjectsWithTag(tagToFind);
+    public void RechercheFlag()
+    {
+        flagToCompare.Clear();
+        GameObject[] objects = GameObject.FindGameObjectsWithTag(tagToFind);
 
-       // Ajouter les Transform de ces objets à la liste
-       foreach (GameObject obj in objects)
-       {
-           flagToCompare.Add(obj.transform);
-       }
+        // Ajouter les Transform de ces objets à la liste
+        foreach (GameObject obj in objects)
+        {
+            flagToCompare.Add(obj.transform);
+        }
 
-       // Afficher le nombre d'objets trouvés avec le tag spécifié
-       Debug.Log("Nombre d'objets avec le tag '" + tagToFind + "' trouvés : " + flagToCompare.Count);
-       FindClosestObject();
-   }
+        // Afficher le nombre d'objets trouvés avec le tag spécifié
+        Debug.Log("Nombre d'objets avec le tag '" + tagToFind + "' trouvés : " + flagToCompare.Count);
+        FindClosestObject();
+    }
 }

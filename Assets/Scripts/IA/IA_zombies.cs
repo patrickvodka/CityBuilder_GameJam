@@ -17,25 +17,21 @@ public class IA_zombies : MonoBehaviour, IDamageable
     public List<Transform> targetList;
     private Transform target;
     private float radiusFreeRun= 5;
-    public List<IDamageable> Damageable;
     public float maxHealth;
     public float currentHealth;
 
 
     [SerializeField] private float DamageAfterTime;
-    [SerializeField] private float strongDamageAfterTime;
     [SerializeField] private DamageType Normal;
-    [SerializeField] private int Damage;
     private Vector3 FreeRunTarget;
     private ClosestFlag closestFlag;
     private AttackArea attackArea;
-    
-    
     
 
 
     private void Awake()
     {
+        attackArea = GetComponent<AttackArea>();
         agent = GetComponent<NavMeshAgent>();
         animator=GetComponent<Animator>();
         FreeRunTarget = transform.position;
@@ -53,7 +49,6 @@ public class IA_zombies : MonoBehaviour, IDamageable
 
     public virtual void Update()
     {
-        
 
 
 
@@ -61,11 +56,6 @@ public class IA_zombies : MonoBehaviour, IDamageable
         {
            animator.SetBool("voir",true);
            animator.SetBool("drapeau poser",false);
-           /*if (Damageable.Any())
-           {
-               Debug.Log("test");
-           }*/
-           
         }
         else
         { 
@@ -73,7 +63,6 @@ public class IA_zombies : MonoBehaviour, IDamageable
             animator.SetBool("voir",false);
             if (flagTarget !=null)
             {
-               
                 animator.SetBool("drapeau poser",true);
             }
             else
@@ -81,8 +70,6 @@ public class IA_zombies : MonoBehaviour, IDamageable
                return;
             }
         }
-       
-        
         
     }
     
@@ -102,12 +89,11 @@ public class IA_zombies : MonoBehaviour, IDamageable
             agent.SetDestination(FreeRunTarget);
 
         }
-        Debug.Log(distance);
     }
     public void Attack()
     {
 
-        StartCoroutine(hit(false));
+        StartCoroutine(hit());
 
     }
     
@@ -120,6 +106,17 @@ public class IA_zombies : MonoBehaviour, IDamageable
         }
         else
         {
+            Vector3 _zombiesPosistion=transform.position;
+            _zombiesPosistion.y = 0;
+        
+            float distance =Vector3.Distance(_zombiesPosistion, targetList[0].transform.position );
+            if (distance<=1.6)
+            {
+            
+                Debug.Log("attack");
+                Attack();
+
+            }
             agent.SetDestination(targetList[0].transform.position);
         }
         
@@ -146,20 +143,21 @@ public class IA_zombies : MonoBehaviour, IDamageable
         return finalPosition;
     }
 
-    private IEnumerator hit(bool strong)
+    private IEnumerator hit()
     {
-        yield return new WaitForSeconds(strong? DamageAfterTime: strongDamageAfterTime);
-        foreach (var damageable in Damageable)
+        yield return new WaitForSeconds( DamageAfterTime);
+        foreach (var damageable in attackArea.Damageables)
         {
-            damageable.TakeDamage(Damage, Normal);
+            damageable.Damage(attackDamage);
         }
         
     }
 
+    
 
-    public void TakeDamage(float damage, DamageType damageType)
+    public void Damage(int damageAmount)
     {
-        currentHealth = currentHealth - damage;
+        currentHealth = currentHealth -damageAmount;
         if (currentHealth <= 0)
         {
             OnDeath?.Invoke();

@@ -5,14 +5,11 @@ using UnityEngine;
 
 public class AttackArea : MonoBehaviour
 {
-    public List<IDamageable> Damageables { get; } = new();
-    private IA_zombies Zombie;
-
-    private void Awake()
-    {
-        Zombie = GetComponent<IA_zombies>();
-    }
-
+   public List<IDamageable> Damageables { get; } = new();
+   
+   
+   
+   
     public void OnTriggerEnter(Collider other)
    {
       var damageable = other.GetComponent<IDamageable>();
