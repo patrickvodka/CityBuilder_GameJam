@@ -1,41 +1,48 @@
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TileInteraction : MonoBehaviour
 {
-    
-    public GameObject fleshPrefab;
-    public GameObject spawnerPrefab;
+    public GameObject prefabToInstantiate; // The prefab to instantiate when clicking on the tile
     private Vector3 originalPosition; // Stores the original position of the tile
     private bool isHighlighted = false; // Indicates whether the tile is currently highlighted
-    private GameObject previewPrefabInstance; // Instance of the preview prefab
+    private GameObject previewPrefabInstance;// Instance of the preview prefab
     private bool canCraft;
-    private bool isSpawnerSet=false;
-    private bool blockInput { get; set; } = false;
+
     private void Start()
     {
         // Save the initial position of the tile
         originalPosition = transform.position;
         canCraft = true;
     }
-    
+
+    private void Update()
+    {
+        // If the preview prefab instance exists, update its position to follow the mouse cursor
+        if (previewPrefabInstance != null)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0; // Ensure the object is at the same z-coordinate
+            previewPrefabInstance.transform.position = transform.position;
+        }
+    }
 
     private void OnMouseEnter()
     {
-       
-        
+        isHighlighted = true; // Set the highlighted flag to true
 
         // Instantiate the preview prefab at the tile's position
-        if (fleshPrefab != null && canCraft)
+        if (prefabToInstantiate != null && canCraft)
         {
-            previewPrefabInstance = Instantiate(fleshPrefab, transform.position, Quaternion.identity);
+            previewPrefabInstance = Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
         }
     }
 
     private void OnMouseExit()
     {
-          transform.position = originalPosition;
+        // Restore the tile to its initial position when the mouse exits
+        if (isHighlighted)
+        {
+            transform.position = originalPosition;
             isHighlighted = false; // Reset the highlighted flag
 
             // Destroy the preview prefab instance
@@ -44,33 +51,16 @@ public class TileInteraction : MonoBehaviour
                 Destroy(previewPrefabInstance);
                 previewPrefabInstance = null;
             }
-        
+        }
     }
 
     private void OnMouseDown()
     {
-        if (!blockInput)
+        // If a preview prefab instance exists and is not null, instantiate the final prefab at the tile's position
+        if (previewPrefabInstance != null && canCraft)
         {
-            // If a preview prefab instance exists and is not null, instantiate the final prefab at the tile's position
-            if (previewPrefabInstance != null && canCraft)
-            {
-                // Check if the previewPrefabInstance has the same tag as spawnerPrefab
-                if (previewPrefabInstance.CompareTag(spawnerPrefab.tag))
-                {
-                    isSpawnerSet=true;
-                    GameObject newBuilding = PrefabUtility.InstantiatePrefab(spawnerPrefab) as GameObject;
-                    newBuilding.transform.position = transform.position;
-                    newBuilding.transform.rotation = transform.rotation;
-                }
-                else
-                {
-                    GameObject newBuilding = PrefabUtility.InstantiatePrefab(fleshPrefab) as GameObject;
-                    newBuilding.transform.position = transform.position;
-                    newBuilding.transform.rotation = transform.rotation;
-                }
-
-                canCraft = false; // Prevent further crafting on this tile
-            }
+            Instantiate(prefabToInstantiate, transform.position, Quaternion.identity);
+            canCraft = false;
         }
     }
 }

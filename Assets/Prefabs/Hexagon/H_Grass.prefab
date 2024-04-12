@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1737609975140352047}
   - component: {fileID: -6278410400049004659}
   - component: {fileID: 2363486663504506961}
+  - component: {fileID: 4126275186898075109}
   m_Layer: 0
   m_Name: H_Grass
   m_TagString: GreenTile
@@ -214,3 +215,16 @@ MonoBehaviour:
   wantedTileInArray: 0
   isSpawned: 0
   playTest: 0
+--- !u!114 &4126275186898075109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224554775205978618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45bd6f08ef372b94d8baa10a8bdcf5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToInstantiate: {fileID: 2688293590801820774, guid: 91ae60df3912b44489e0878b2c11d9d7, type: 3}
