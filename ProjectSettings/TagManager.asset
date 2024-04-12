@@ -9,6 +9,7 @@ TagManager:
   - GreenTile
   - Enemy
   - Flag
+  - VilleHumain
   layers:
   - Default
   - TransparentFX
