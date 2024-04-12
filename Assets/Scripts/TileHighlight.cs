@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -53,8 +54,22 @@ public class TileInteraction : MonoBehaviour
             // If a preview prefab instance exists and is not null, instantiate the final prefab at the tile's position
             if (previewPrefabInstance != null && canCraft)
             {
-                Instantiate(fleshPrefab, transform.position, Quaternion.identity);
-                canCraft = false;
+                // Check if the previewPrefabInstance has the same tag as spawnerPrefab
+                if (previewPrefabInstance.CompareTag(spawnerPrefab.tag))
+                {
+                    isSpawnerSet=true;
+                    GameObject newBuilding = PrefabUtility.InstantiatePrefab(spawnerPrefab) as GameObject;
+                    newBuilding.transform.position = transform.position;
+                    newBuilding.transform.rotation = transform.rotation;
+                }
+                else
+                {
+                    GameObject newBuilding = PrefabUtility.InstantiatePrefab(fleshPrefab) as GameObject;
+                    newBuilding.transform.position = transform.position;
+                    newBuilding.transform.rotation = transform.rotation;
+                }
+
+                canCraft = false; // Prevent further crafting on this tile
             }
         }
     }
