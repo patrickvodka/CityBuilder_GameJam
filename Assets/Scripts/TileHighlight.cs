@@ -17,6 +17,7 @@ public class TileInteraction : MonoBehaviour
 
     private void Update()
     {
+        prefabToInstantiate = GetComponentInParent<HexagonGridRules>().objectToSpawn;
         // If the preview prefab instance exists, update its position to follow the mouse cursor
         if (previewPrefabInstance != null)
         {
