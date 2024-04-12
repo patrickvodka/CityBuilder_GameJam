@@ -115,7 +115,7 @@ public partial class  HexagonGridRules : MonoBehaviour
         
     }
 #endif
-    private void ClearChildrens()
+    void ClearChildrens()
     {
         int childCount = transform.childCount;
         for (int i = childCount - 1; i >= 0; i--)
