@@ -16,7 +16,6 @@ public partial class  HexagonGridRules : MonoBehaviour
     [Tooltip("mettre la variable a true si on lance le jeu en PlayMode")]
     public bool playTest = true;
     public bool clearChildrens;
-    public GameObject objectToSpawn;
     [Space]
     [Space]
     
@@ -115,7 +114,7 @@ public partial class  HexagonGridRules : MonoBehaviour
         
     }
 #endif
-    void ClearChildrens()
+    private void ClearChildrens()
     {
         int childCount = transform.childCount;
         for (int i = childCount - 1; i >= 0; i--)

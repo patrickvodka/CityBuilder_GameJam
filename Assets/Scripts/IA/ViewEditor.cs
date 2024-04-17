@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-[ExecuteInEditMode]
+
 [CustomEditor (typeof (View))]
-public class ViewEditor : Editor    
+public class ViewEditor : Editor
 {
     void OnSceneGUI() {
         View fow = (View)target;
